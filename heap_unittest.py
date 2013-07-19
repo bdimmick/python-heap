@@ -78,20 +78,6 @@ class TestHeap(unittest.TestCase):
 
 
     '''
-    Test default max-heap and ensure the heap can store mixed types that support the default lambda comparator
-    '''        
-    def test_MixedTypes(self):
-        self.makeHeap([True, 1, 2, 3, "Hello", "Mixed Type Insanity", "Why would", "Anyone", "Do", "This?"])    
-        self.vals.sort()        
-        while len(self.vals) > 0:
-            self.assertEquals(len(self.vals), len(self.heap), "Expected heap length did not match %s" % len(self.vals))
-            val = self.vals.pop()
-            got = self.heap.pop()
-            self.assertEquals(val, got, "Heap did not pop expected value %s, got %s" % (val, got))
-            self.assertEquals(len(self.vals), len(self.heap), "Expected post-pop heap length did not match %s" % len(self.vals))
-
-        
-    '''
     Test default max-heap and ensure one heap can be added to another for a whole new heap
     '''        
     def test_AdditionOfHeap(self):        

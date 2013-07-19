@@ -27,7 +27,7 @@ class Heap(object):
     
     
     def __parent__(self, i):
-        return i / 2
+        return i // 2
     
     
     def __left__(self, i):
@@ -97,39 +97,27 @@ class Heap(object):
 
     def drain(self, until = None, filt = None):
         result = []
-        
-        #In the case we have a 
+                
         if until:
-            kept = []
+            skipped = []
             while (until(self.values[0])):
                 val = self.pop()
                 if filt:
                     if (filt(val)):
                         result.append(val)
                     else:
-                        kept.append(val)
+                        skipped.append(val)
                 else:
                     result.append(val)
-            for k in kept:
+            for k in skipped:
                 self.append(k)
         else:
-            if filt:
-                for val in self.values:
-                    if filt(val):
-                        result.append(val)
-            else:
-                result = self.values  
-            #ObHack:We use a boolean comparison in this class,
-            #       but sort in sequences uses -1/0/1 comparisons
-            def sorter(a,b):
-                if (a == b):
-                    return 0
-                elif (self.comparator(a, b)):
-                    return -1
-                else:
-                    return 1
-            result.sort(sorter)            
-            self.values = []
+            if not filt:
+                filt = lambda a: True
+            while len(self.values) > 0:
+                val = self.pop()
+                if filt(val):
+                    result.append(val)
         return result
     
     
