@@ -24,19 +24,15 @@ class Heap(object):
     def __init__(self, comp=maxheap):
         self.values=[]
         self.comparator = comp
-    
-    
+        
     def __parent__(self, i):
         return i // 2
-    
     
     def __left__(self, i):
         return (i * 2) + 1
     
-    
     def __right__(self, i):
         return (i + 1) * 2
-    
         
     def __add__(self, other):
         result = Heap()
@@ -44,11 +40,9 @@ class Heap(object):
         result+=other
         return result
     
-    
     def __contains__(self, i):
         return i in self.values
     
-
     def __heapify__(self, i):
         left = self.__left__(i)
         right = self.__right__(i)
@@ -62,7 +56,6 @@ class Heap(object):
             self.__swap__(i, largest)
             self.__heapify__(largest)
 
-    
     def __iadd__(self, other):
         if type(other)==Heap:
             for val in other.values:
@@ -74,17 +67,14 @@ class Heap(object):
             self.append(other)
         return self
 
-
     def __len__(self):
         return len(self.values)
-
 
     def __swap__(self, i, j):
         v = self.values[i]
         self.values[i] = self.values[j]
         self.values[j] = v
-    
-        
+            
     def append(self, obj):
         self.values.append(obj)
         i = len(self.values) - 1
@@ -93,7 +83,6 @@ class Heap(object):
             self.__swap__(i, parent)
             i = parent
             parent = self.__parent__(i)
-
 
     def drain(self, until = None, filt = None):
         result = []
@@ -119,8 +108,7 @@ class Heap(object):
                 if filt(val):
                     result.append(val)
         return result
-    
-    
+        
     def pop(self):
         if (len(self.values) > 0):
             result = self.values[0]
